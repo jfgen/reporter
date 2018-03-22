@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import logo from './poo.png';
+import logo from './logo.png';
 import './App.css';
 
 const location = require('@derhuerst/browser-location');
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            coords: {latitude: null, longitude: null}
+        };
+
+        this.sendData = this.sendData.bind(this);
+    }
+
     sendData() {
         location((err, loc) => {
-            if (err) console.error(err)
-            else console.log(loc)
+            if (err) console.error(err);
+            else {
+                this.setState({coords: {latitude: loc.latitude, longitude: loc.longitude}});
+            }
         })
     }
 
